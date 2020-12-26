@@ -2,18 +2,26 @@
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 const startButton = document.getElementById('startButton');
-
-let x = 700;
-let y = 800;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+let x = canvas.width / 2;
+let y = canvas.height - 100;
 let length = 180;
 let angle = 0;
 let angleChange;
+
+startButton.addEventListener('click', function () {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawTree(length, angle, x, y, 15, 'brown', 'green');
+})
 
 function drawTree(length, angle, x, y, width, color1, color2) {
     ctx.save();
     ctx.beginPath();
     ctx.strokeStyle = color1;
     ctx.fillStyle = color2;
+    ctx.shadowBlur = 4;
+    ctx.shadowColor = 'rgb(32, 221, 228)';
     ctx.lineWidth = width;
     ctx.translate(x, y);
     ctx.moveTo(0, 0);

@@ -1,19 +1,22 @@
+* {
+    margin: 0;
+    padding: 0;
+}
 .canvas {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 canvas {
-    border: 2px solid black;
     background-color: black;
 }
 .button {
     position: relative;
-    margin-top: 7px;
+    margin-top: -110px;
     background-color: rgb(216, 97, 216);
     text-align: center;
-    padding: 12px 60px;
-    border-radius: 5%;
+    padding: 12px 66px;
+    border-radius: 6%;
     border: 1px solid black;
     font-size: 30px;
     box-shadow: 0 4px rgb(100, 24, 100);
@@ -27,4 +30,5 @@ canvas {
 .button:active {
     top: 3px;
     box-shadow: none;
+    background-color: rgb(32, 221, 228);
 }
