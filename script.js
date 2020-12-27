@@ -2,6 +2,7 @@
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 const startButton = document.getElementById('startButton');
+const infinity = document.getElementById('infinity');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 let x = canvas.width / 2;
@@ -9,27 +10,39 @@ let y = canvas.height - 100;
 let length = 180;
 let angle = 0;
 let angleChange;
+let timer;
 
 startButton.addEventListener('click', function () {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawTree(length, angle, x, y, 15, 'brown', 'green');
-})
+    getRandomTree();
+});
+infinity.addEventListener('click', function () {
+    if (timer) {
+        clearTimeout(timer);
+        timer = 0;
+        infinity.style.color = 'black';
+    } else {
+        infinity.style.color = 'yellow';
+        infinityMod();
+    }
+});
 
-function drawTree(length, angle, x, y, width, color1, color2) {
+function drawTree(length, angle, x, y, width, color1, color2, color3, shadWidth) {
     ctx.save();
     ctx.beginPath();
     ctx.strokeStyle = color1;
     ctx.fillStyle = color2;
-    ctx.shadowBlur = 4;
-    ctx.shadowColor = 'rgb(32, 221, 228)';
+    ctx.lineCap = 'round';
+    ctx.shadowBlur = shadWidth;
+    ctx.shadowColor = color3;
     ctx.lineWidth = width;
     ctx.translate(x, y);
     ctx.moveTo(0, 0);
     ctx.rotate(angle * Math.PI / 180);
+    let randX = getRandom(9, 20);
     if (angle > 0) {
-        ctx.bezierCurveTo(-12, -length / 2, 12, -length / 2, 0, -length);
+        ctx.bezierCurveTo(-randX, -length / 2, randX, -length / 2, 0, -length);
     } else {
-        ctx.bezierCurveTo(12, -length / 2, -12, -length / 2, 0, -length);
+        ctx.bezierCurveTo(randX, -length / 2, -randX, -length / 2, 0, -length);
     }
 
     ctx.stroke();
@@ -45,9 +58,34 @@ function drawTree(length, angle, x, y, width, color1, color2) {
     drawTree(length * 0.74, angle - angleChange, 0, -length, width * 0.7);
     ctx.restore();
 }
-drawTree(length, angle, x, y, 15, 'brown', 'green');
+drawTree(length, angle, x, y, 15, 'brown', 'green', 'white', 6);
 
 
 function getRandom(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getRandomColor() {
+    return `rgb(${getRandom(0, 255)},${getRandom(0, 255)},${getRandom(0, 255)})`
+}
+
+function getRandomTree() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let colorTrunk = getRandomColor();
+    let colorFoliage = getRandomColor();
+    let colorShadow = getRandomColor();
+    colorTrunk == colorFoliage ? colorFoliage = getRandomColor() : 0;
+    startButton.style.background = colorTrunk;
+    infinity.style.background = colorTrunk;
+    infinity.style["boxShadow"] = `0 4px ${colorFoliage}`;
+    startButton.style["boxShadow"] = `0 4px ${colorFoliage}`;
+    startButton.style.borderColor = colorShadow;
+    drawTree(getRandom(120, 230), angle, x, y, getRandom(10, 40), colorTrunk, colorFoliage, colorShadow, getRandom(6, 15));
+}
+function infinityMod() {
+    timer = setTimeout(function () {
+        getRandomTree();
+        infinityMod();
+        console.log('sek');
+    }, 4000);
 }

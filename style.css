@@ -13,22 +13,33 @@ canvas {
 .button {
     position: relative;
     margin-top: -110px;
-    background-color: rgb(216, 97, 216);
+    background-color: brown;
     text-align: center;
     padding: 12px 66px;
     border-radius: 6%;
     border: 1px solid black;
     font-size: 30px;
-    box-shadow: 0 4px rgb(100, 24, 100);
+    box-shadow: 0 4px green;
 }
 .button:hover {
     cursor: pointer;
     top: 1px;
-    background-color: rgb(200, 91, 200);
-    box-shadow: 0 3px rgb(66, 14, 66);
 }
 .button:active {
     top: 3px;
     box-shadow: none;
-    background-color: rgb(32, 221, 228);
+}
+
+.infinity {
+    position: absolute;
+    background-color: brown;
+    box-shadow: 0 4px green;
+    top: 9%;
+    left: 101%;
+    padding: 8px 5px;
+    border-radius: 10%;
+}
+.infinity:hover {
+    border: 1px solid yellow;
+    top: 7%;
 }
