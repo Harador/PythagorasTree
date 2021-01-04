@@ -7,11 +7,22 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 let x = canvas.width / 2;
 let y = canvas.height - 100;
-let length = 180;
 let angle = 0;
 let angleChange;
 let timer;
+let length = 180;
+let minLen, maxLen, maxWidth;
 
+if (innerHeight >= 800) {
+    minLen = 120;
+    maxLen = 230;
+    maxWidth = 40;
+} else {
+    length = 165;
+    minLen = 110;
+    maxLen = 170;
+    maxWidth = 35;
+};
 startButton.addEventListener('click', function () {
     getRandomTree();
 });
@@ -25,6 +36,8 @@ infinity.addEventListener('click', function () {
         infinityMod();
     }
 });
+
+
 
 function drawTree(length, angle, x, y, width, color1, color2, color3, shadWidth) {
     ctx.save();
@@ -80,7 +93,7 @@ function getRandomTree() {
     infinity.style["boxShadow"] = `0 4px ${colorFoliage}`;
     startButton.style["boxShadow"] = `0 4px ${colorFoliage}`;
     startButton.style.borderColor = colorShadow;
-    drawTree(getRandom(120, 230), angle, x, y, getRandom(10, 40), colorTrunk, colorFoliage, colorShadow, getRandom(6, 15));
+    drawTree(getRandom(minLen, maxLen), angle, x, y, getRandom(10, maxWidth), colorTrunk, colorFoliage, colorShadow, getRandom(6, 15));
 }
 function infinityMod() {
     timer = setTimeout(function () {
